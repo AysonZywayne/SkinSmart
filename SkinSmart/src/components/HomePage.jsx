@@ -9,6 +9,7 @@ export default function HomePage({ skinType, setSkinType, setPage }) {
   const [answers, setAnswers] = useState({});
   const [result, setResult] = useState(skinType || null);
   const [step, setStep] = useState(0);
+  const [hoveredType, setHoveredType] = useState(null);
 
   const handleSkinSelect = (type) => {
     setSkinType(type);
@@ -136,19 +137,25 @@ export default function HomePage({ skinType, setSkinType, setPage }) {
             >
               {Object.entries(SKIN_DATA).map(([type, d]) => (
                 <button
-                  key={type}
-                  onClick={() => handleSkinSelect(type)}
-                  style={{
-                    background: d.bg,
-                    border: `2px solid ${d.color}30`,
-                    borderRadius: 20,
-                    padding: "24px 32px",
-                    cursor: "pointer",
-                    minWidth: 150,
-                    textAlign: "center",
-                    transition: "all 0.2s",
-                  }}
-                >
+                key={type}
+                onClick={() => handleSkinSelect(type)}
+                onMouseEnter={() => setHoveredType(type)}
+                onMouseLeave={() => setHoveredType(null)}
+                style={{
+                  background: d.bg,
+                  border: `2px solid ${d.color}30`,
+                  borderRadius: 20,
+                  padding: "24px 32px",
+                  cursor: "pointer",
+                  minWidth: 150,
+                  textAlign: "center",
+                  transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+                  transform: hoveredType === type ? "translateY(-4px) scale(1.02)" : "translateY(0) scale(1)",
+                  boxShadow: hoveredType === type 
+                    ? `0 12px 24px ${d.color}20` 
+                    : "0 4px 12px rgba(0,0,0,0.05)",
+                }}
+              >
                   <div style={{ fontSize: 26, color: d.color, marginBottom: 8 }}>
                     {d.emoji}
                   </div>
