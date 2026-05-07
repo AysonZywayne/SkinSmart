@@ -50,7 +50,7 @@ export default function InfluencerPage({ skinType }) {
               color: COLORS.terra,
               cursor: "pointer",
               marginBottom: 20,
-              fontSize: 14,
+              fontSize: 20,
             }}
           >
             ← Back to all
